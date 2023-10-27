@@ -19,8 +19,9 @@ private:
 	int xp;
 	string email;
 	float balance;
+	float wgoal;
 public:
-	explicit User(string _fname, string _lname, string _usertype, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0);
+	explicit User(string _fname, string _lname, string _usertype, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0, float _wgoal);
 	~User();
 
 	void setFirstName(string _fname);
@@ -41,6 +42,8 @@ public:
 	string getEmail() const;
 	void setBalance(float _balance);
 	float getBalance() const;
+	void setWeightGoal(float _wgoal);
+	float getWeightGoal() const;
 
 	string getName() const;
 

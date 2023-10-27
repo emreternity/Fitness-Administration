@@ -151,6 +151,19 @@ float User::getBalance() const {
 	return balance;
 }
 
+void User::setWeightGoal(float _wgoal) {
+	if (_wgoal > 0 && _wgoal < 200) {
+		wgoal = _wgoal;
+	}
+	else {
+		throw invalid_argument("Gecersiz hedef kilo degeri girdiniz.");
+	}
+}
+
+float User::getWeightGoal() const {
+	return wgoal;
+}
+
 void User::setXP(int _xp) {
 	if (_xp > 0) {
 		xp = _xp;
