@@ -2,9 +2,10 @@
 #include <string>
 #include <stdexcept>
 #include <chrono>
+#include <regex> 
 #include <algorithm>
 
-User::User(string _fname, string _lname, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0) {
+User::User(string _fname, string _lname, string _usertype, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0) {
 	setFirstName(_fname);
 	setLastName(_lname);
 	setAge(_age);
@@ -17,7 +18,7 @@ User::User(string _fname, string _lname, int _age, float _weight, float _height,
 }
 
 User::~User() {
-	// TODO: Üyenin database'teki siliniþini gerçekleþtirecek kod yazýlacak.
+	
 }
 
 void User::setFirstName(string _fname) {
@@ -49,16 +50,16 @@ string User::getLastName() const {
 }
 
 void User::setUserType(string _usertype) {
-	_usertype = transform(_usertype.begin(), _usertype.end(), _usertype.begin(), ::tolower);
+	transform(_usertype.begin(), _usertype.end(), _usertype.begin(), ::tolower);
 	if (_usertype != "silver" || _usertype != "gold" || _usertype != "platinum" || _usertype != "diamond"){
-		throw invalid_argument("Uyelik tipi mevcut degil.")
+		throw invalid_argument("Uyelik tipi mevcut degil.");
 	}
 	else {
 		usertype = _usertype;
 	}
 }
 
-string User::getUserType() {
+string User::getUserType() const{
 	return usertype;
 }
 
@@ -101,30 +102,35 @@ float User::getHeight() const {
 	return height;
 }
 
-// TODO: Günlerin aya ve yýla göre sýnýrlandýrýlmasý saðlanacak, þubat ayýnýn 29 çektiði günler gibi özel durumlar göz önünde bulundurularak kodlanacak.
-// ! Solved: Doðrulama main içerisinde, chrono kullanýlarak parametre üzerinde yapýlacak.
-// void User::setRegdate(string _regyear) { }
+void User::setRegdate(string _regdate) { 
+	regdate = _regdate;
+}
 
 void User::setRegdate() {
-	const auto now = chrono::system_clock::now();
-	const time_t t_c = chrono::system_clock::to_time_t(now);
-	regdate = ctime(&t_c);
+	time_t t = time(nullptr);
+	char mbstr[11];
+	strftime(mbstr, sizeof(mbstr), "%d/%m/%Y", localtime(&t));
+	regdate = mbstr;
 }
  
 string User::getRegdate() const { 
 	return regdate;
 }
 
-void User::setEmail(string _email) {
+const regex emailpattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
-	// TODO: Girilen email deðerinin _________@____.com þeklindeki geleneksel email formatýna uyup uymadýðýný belirleyen doðrulama kodlanacak.
-	// ! Solved: Email doðrulamasý main.cpp içerisinde, parametre üzerinde regex ile yapýlacak. bkz. https://www.geeksforgeeks.org/check-if-given-email-address-is-valid-or-not-in-cpp/ | https://www.geeksforgeeks.org/regex-regular-expression-in-c/
+void User::setEmail(string _email) {
 
 	if (_email.length() > 256 || _email.length() < 1) {
 		throw invalid_argument("Gecersiz email uzunlugu.");
 	}
 	else {
-		email = _email;
+		if (regex_match(_email, emailpattern)){
+			email = _email;
+		}
+		else {
+			throw invalid_argument("Gecersiz e-posta formati.");
+		}
 	}
 }
 
@@ -158,12 +164,29 @@ int User::getXP() const {
 	return xp;
 }
 
-// Switch Case kullan?larak, verilen level de?erine kar??l?k gelen xp de?eri setXP fonk. ile ayarlanacak.
-// void User::setLevel(int _level) { }
+void User::setLevel(int _level) {
+	if (_level < 1) {
+		throw invalid_argument("Lutfen seviye icin birden buyuk bir deger giriniz.");
+	}
+	else {
+		int prexp = 0;
+		for (int i = 2; i <= _level; i++) {
+			prexp += i * 50;
+		}
+		xp = prexp;
+	}
+}
 
-// Switch Case kullan?larak, sahip olunan XP de?erine kar??l?k gelen alt taban level de?eri return edilecek.
-// int User::getLevel() const { }
+int User::getLevel() const { 
+	int i = 0;
+	int level = 1;
+	while (i + ((level + 1) * 50) <= xp) {
+		level++;
+		i += level * 50;
+	}
+	return level;
+}
 
 string User::getName() const {
-	return fname + " " + lname; // TODO: De?er do?ru mu kontrol edilecek.
+	return fname + " " + lname;
 }

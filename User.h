@@ -35,12 +35,6 @@ public:
 	float getWeight() const;
 	void setHeight(float _height);
 	float getHeight() const;
-	void setRegday(int _regday);
-	int getRegday() const;
-	void setRegmonth(int _regmonth);
-	int getRehmonth() const;
-	void setRegyear(int _regyear);
-	int getRegyear() const;
 	void setXP(int _xp);
 	int getXP() const;
 	void setEmail(string _email);
