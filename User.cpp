@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <chrono>
+#include <algorithm>
 
 User::User(string _fname, string _lname, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0) {
 	setFirstName(_fname);
@@ -45,6 +46,20 @@ void User::setLastName(string _lname) {
 
 string User::getLastName() const {
 	return lname;
+}
+
+void User::setUserType(string _usertype) {
+	_usertype = transform(_usertype.begin(), _usertype.end(), _usertype.begin(), ::tolower);
+	if (_usertype != "silver" || _usertype != "gold" || _usertype != "platinum" || _usertype != "diamond"){
+		throw invalid_argument("Uyelik tipi mevcut degil.")
+	}
+	else {
+		usertype = _usertype;
+	}
+}
+
+string User::getUserType() {
+	return usertype;
 }
 
 void User::setAge(int _age) {
@@ -143,12 +158,12 @@ int User::getXP() const {
 	return xp;
 }
 
-// Switch Case kullanýlarak, verilen level deðerine karþýlýk gelen xp deðeri setXP fonk. ile ayarlanacak.
+// Switch Case kullan?larak, verilen level de?erine kar??l?k gelen xp de?eri setXP fonk. ile ayarlanacak.
 // void User::setLevel(int _level) { }
 
-// Switch Case kullanýlarak, sahip olunan XP deðerine karþýlýk gelen alt taban level deðeri return edilecek.
+// Switch Case kullan?larak, sahip olunan XP de?erine kar??l?k gelen alt taban level de?eri return edilecek.
 // int User::getLevel() const { }
 
 string User::getName() const {
-	return fname + " " + lname; // TODO: Deðer doðru mu kontrol edilecek.
+	return fname + " " + lname; // TODO: De?er do?ru mu kontrol edilecek.
 }

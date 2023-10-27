@@ -11,6 +11,7 @@ class User {
 private:
 	string fname;
 	string lname;
+	string usertype;
 	int age;
 	float weight;
 	float height;
@@ -19,13 +20,15 @@ private:
 	string email;
 	float balance;
 public:
-	explicit User(string _fname, string _lname, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0);
+	explicit User(string _fname, string _lname, string _usertype, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0);
 	~User();
 
 	void setFirstName(string _fname);
 	string getFirstName() const;
 	void setLastName(string _lname);
 	string getLastName() const;
+	void setUserType(string _usertype);
+	string getUserType() const;
 	void setAge(int _age);
 	int getAge() const;
 	void setWeight(float _weight);
