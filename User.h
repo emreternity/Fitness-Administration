@@ -14,9 +14,7 @@ private:
 	int age;
 	float weight;
 	float height;
-	int regday;
-	int regmonth;
-	int regyear;
+	string regdate;
 	int xp;
 	string email;
 	float balance;
@@ -49,7 +47,7 @@ public:
 
 	string getName() const;
 
-	void setRegdate(int _regday, int _regmonth, int _regyear);
+	void setRegdate(string _regdate);
 	void setRegdate();
 	string getRegdate() const;
 	

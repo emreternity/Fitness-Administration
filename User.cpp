@@ -1,7 +1,6 @@
 #include "User.h"
 #include <string>
 #include <stdexcept>
-#include <ctime>
 #include <chrono>
 
 User::User(string _fname, string _lname, int _age, float _weight, float _height, string _email, float _balance = 0, int _xp = 0) {
@@ -14,6 +13,10 @@ User::User(string _fname, string _lname, int _age, float _weight, float _height,
 	setEmail(_email);
 	setBalance(_balance);
 	setXP(_xp);
+}
+
+User::~User() {
+	// TODO: Üyenin database'teki siliniþini gerçekleþtirecek kod yazýlacak.
 }
 
 void User::setFirstName(string _fname) {
@@ -84,15 +87,23 @@ float User::getHeight() const {
 }
 
 // TODO: Günlerin aya ve yýla göre sýnýrlandýrýlmasý saðlanacak, þubat ayýnýn 29 çektiði günler gibi özel durumlar göz önünde bulundurularak kodlanacak.
-// void User::setRegdate(int _regday, int _regmonth, int _regyear) { }
+// ! Solved: Doðrulama main içerisinde, chrono kullanýlarak parametre üzerinde yapýlacak.
+// void User::setRegdate(string _regyear) { }
 
-// TODO: Bilgisayardan tarih verisini alan ve regday, regmonth, regyear verilerine ayrý ayrý dolduran setRegdate fonksiyonu kodlanacak.
-// void User::setRegdate() { } 
-// string User::getRegdate() const { }
+void User::setRegdate() {
+	const auto now = chrono::system_clock::now();
+	const time_t t_c = chrono::system_clock::to_time_t(now);
+	regdate = ctime(&t_c);
+}
+ 
+string User::getRegdate() const { 
+	return regdate;
+}
 
 void User::setEmail(string _email) {
 
 	// TODO: Girilen email deðerinin _________@____.com þeklindeki geleneksel email formatýna uyup uymadýðýný belirleyen doðrulama kodlanacak.
+	// ! Solved: Email doðrulamasý main.cpp içerisinde, parametre üzerinde regex ile yapýlacak. bkz. https://www.geeksforgeeks.org/check-if-given-email-address-is-valid-or-not-in-cpp/ | https://www.geeksforgeeks.org/regex-regular-expression-in-c/
 
 	if (_email.length() > 256 || _email.length() < 1) {
 		throw invalid_argument("Gecersiz email uzunlugu.");
