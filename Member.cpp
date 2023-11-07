@@ -19,7 +19,7 @@ Member::~Member() {
 }
 
 
-void Member::setMemberType(string _membertype) {
+void Member::setMemberType(const string &_membertype) {
 	transform(_membertype.begin(), _membertype.end(), _membertype.begin(), ::tolower);
 	if (_membertype != "silver" || _membertype != "gold" || _membertype != "platinum" || _membertype != "diamond"){
 		throw invalid_argument("Uyelik tipi mevcut degil.");
@@ -33,7 +33,7 @@ string Member::getMemberType() const{
 	return membertype;
 }
 
-void Member::setRegdate(string _regdate) { 
+void Member::setRegdate(const string &_regdate) { 
 	regdate = _regdate;
 }
 
@@ -50,7 +50,7 @@ string Member::getRegdate() const {
 
 const regex emailpattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
 
-void Member::setEmail(string _email) {
+void Member::setEmail(const string &_email) {
 
 	if (_email.length() > 256 || _email.length() < 1) {
 		throw invalid_argument("Gecersiz email uzunlugu.");
