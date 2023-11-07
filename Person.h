@@ -18,9 +18,9 @@ class Person {
 		explicit Person(const string &_fname, const string &_lname, int _age, float _weight, float _height, const string &_birthdate);
 		~Person();
 
-		void setFirstName(string _fname);
+		void setFirstName(const string &_fname);
 		string getFirstName() const;
-		void setLastName(string _lname);
+		void setLastName(const string &_lname);
 		string getLastName() const;
 		void setAge(int _age);
 		int getAge() const;
@@ -28,7 +28,7 @@ class Person {
 		float getWeight() const;
 		void setHeight(float _height);
 		float getHeight() const;
-		void setBirthdate(string _birthdate);
+		void setBirthdate(const string &_birthdate);
 		string getBirthdate() const;
 
 		string getName() const;

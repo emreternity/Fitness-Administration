@@ -1,25 +1,51 @@
-/*
-TODO List
+#ifndef EMPLOYEE_H
+#define EMPLOYEE_H
 
-Person class'ýndan kalýtým alan bir Employee classý oluþturulacak.
+#include "Person.h"
+#include <string>
 
-eklenmesi gereken sýnýf içi deðiþkenler: 
-- brüt maaþ (asgari ücret varsayýlan deðeri ile)
-- kayýt tarihi
-- iþten ayrýlma tarihi ("N/A" varsayýlan deðeri ile)
-- izin kullanýlan gün sayýsý (0 varsayýlan deðeri ile)
+class Employee : public Person{
+private:
+	float basesalary;
+	string startingdate;
+	string leavingdate;
+	string employeetype;
+	int offdays;
+	int workdays;
+	static float temizlikcisalary;
+	static float gorevlisalary;
+	static float ptsalary;
+	
+public:
+	explicit Employee(const string &_fname, const string &_lname, int _age, float _weight, float _height, const string &_birthdate, const string& _startingdate, int _workdays, const string& _leavingdate = "N/A", float _basesalary = 11402.32, const string &_employeetype = "Gorevli");
+	~Employee();
+		
+	void setBaseSalary(float _basesalary=11402.32);
+	float getBaseSalary() const;
+	
+	void setStartingDate(const string &_startingdate);
+	string getStartingDate() const;
+	
+	void setLeavingDate(const string &_leavingdate="N/A");
+	string getLeavingDate() const;
+	
+	void setEmployeeType(const string &_employeetype = "Gorevli");
+	string getEmployeeType()  const;
+	
+	void setOffDays(int _offdays=0);
+	int getOffDays() const;
 
-eklenmesi gereken sýnýf dýþý deðiþkenler (deðerler deðiþmeyeceði için hepsi const)
-- SGK primi
-- Ýþsizlik Primi
-- Gelir Vergisi
-- Damga Vergisi
+	void setWorkDays(int _workdays = 1);
+	int getWorkDays() const;
+	
+	float calculateSalary();
 
-eklenmesi gereken sýnýf içi fonksiyonlar: 
-- brüt maaþ için set-get
-- iþe baþlama tarihi için set-get
-- iþten ayrýlma tarihi için set-get
-- izin kullanýlan gün sayýsý için set-get
-- brüt maaþtan net maaþ hesaplama bkz. https://shorturl.at/joVW7
-- Her izin kullanýlan gün için hesaplanýlan net maaþýn %3'ünü eksiltip ödenecek maaþý hesaplama (üsttekinden ayrý fonksiyon)
-*/
+	static void setDefaultSalaries(float _temizlikcisalary, float _gorevlisalary, float _ptsalary);
+
+	}
+	
+	
+};
+
+
+#endif// !EMPLOYEE_H

@@ -17,7 +17,7 @@ Person::~Person() {
 
 }
 
-void Person::setFirstName(string _fname) {
+void Person::setFirstName(const string &_fname) {
 	if (_fname.length() < 1 || _fname.length() > 18)
 	{
 		throw invalid_argument("Isim cok uzun ya da cok kisa.");
@@ -31,7 +31,7 @@ string Person::getFirstName() const {
 	return fname;
 }
 
-void Person::setLastName(string _lname) {
+void Person::setLastName(const string &_lname) {
 	if (_lname.length() < 1 || _lname.length() > 18)
 	{
 		throw invalid_argument("Soyisim cok uzun ya da cok kisa.");
@@ -84,7 +84,7 @@ float Person::getHeight() const {
 	return height;
 }
 
-void Person::setBirthdate(string _birthdate) {
+void Person::setBirthdate(const string &_birthdate) {
 	birthdate = _birthdate;
 }
 
