@@ -69,7 +69,7 @@ string Member::getEmail() const {
 	return email;
 }
 
-void Member::setBalance(float _balance) {
+void Member::setBalance(float _balance = 0) {
 	if (_balance > 0) {
 		balance = _balance;
 	}
@@ -95,7 +95,7 @@ float Member::getWeightGoal() const {
 	return wgoal;
 }
 
-void Member::setXP(int _xp) {
+void Member::setXP(int _xp = 0) {
 	if (_xp > 0) {
 		xp = _xp;
 	}
@@ -108,7 +108,7 @@ int Member::getXP() const {
 	return xp;
 }
 
-void Member::setLevel(int _level) {
+void Member::setLevel(int _level = 1) {
 	if (_level < 1) {
 		throw invalid_argument("Lutfen seviye icin birden buyuk bir deger giriniz.");
 	}

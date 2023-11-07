@@ -21,11 +21,11 @@ public:
 
 	void setMemberType(string _membertype);
 	string getMemberType() const;
-	void setXP(int _xp);
+	void setXP(int _xp = 0);
 	int getXP() const;
 	void setEmail(string _email);
 	string getEmail() const;
-	void setBalance(float _balance);
+	void setBalance(float _balance = 0);
 	float getBalance() const;
 	void setWeightGoal(float _wgoal);
 	float getWeightGoal() const;
@@ -35,7 +35,7 @@ public:
 	string getRegdate() const;
 	
 	int getLevel() const;
-	void setLevel(int _level);
+	void setLevel(int _level = 1);
 };
 
 #endif // !MEMBER_H
