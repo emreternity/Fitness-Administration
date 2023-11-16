@@ -8,6 +8,9 @@
 using namespace std;
 
 class Member : public Person{
+
+	friend class Usable;
+
 private:
 	string membertype;
 	string regdate;
