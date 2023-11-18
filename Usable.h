@@ -12,17 +12,16 @@ class Usable {
 		string accessLevel;
 		bool isReservable;
 		bool isReserved;
-		string reserver;
+		Member reserver;
 		
 	public:
-		explicit Usable(int _capacity, const string &_name, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, bool _isReserved = false, const string &_reserver = "N/A");
+		explicit Usable(int _capacity, const string &_name, Member _reserver, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, bool _isReserved = false);
 		~Usable();
 		void setCapacity(int _capacity);
 		void setName(const string &_name);
 		void setUsableType(const string &_usableType);
 		void setAccessLevel(const string &_accessLevel);
 		void setIsReservable(bool _isReservable);
-		void setReserver(const string &_reserver);
 		
 		int getCapacity() const;
 		string getName() const;
@@ -30,10 +29,10 @@ class Usable {
 		string getAccessLevel() const;
 		bool getIsReservable() const;
 		bool getIsReserved() const;
-		string getReserver() const;
+		Member getReserver() const;
 		
-		void reserve(const string &_reserver);
-		void unreserve();
+		void reserve(Member _reserver);
+		void unreserve(Member _nullreserver);
 };
 
 #endif // !USABLE_H

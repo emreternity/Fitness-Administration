@@ -3,10 +3,9 @@
 #include <stdexcept>
 #include <algorithm>
 
-Usable::Usable(int _capacity, const string &_name, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, bool _isReserved = false, const string &_reserver = "N/A") {
-	isReserved = _isReserved;
-	reserver = _reserver;
-	
+Usable::Usable(int _capacity, const string &_name, Member _reserver, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, bool _isReserved = false) 
+	: isReserved(_isReserved), reserver(_reserver)
+{
 	setCapacity(_capacity);
 	setName(_name);
 	setUsableType(_usableType);
@@ -80,11 +79,11 @@ bool Usable::getIsReserved() const{
 	return isReserved;
 }
 
-string Usable::getReserver() const{
+Member Usable::getReserver() const{
 	return reserver;
 }
 
-void Usable::reserve(const string &_reserver){
+void Usable::reserve(Member _reserver){
 	if (isReservable == true && isReserved == false) {
 		isReserved = true;
 		reserver = _reserver;
@@ -95,7 +94,7 @@ void Usable::reserve(const string &_reserver){
 }
 
 
-void Usable::unreserve(){
+void Usable::unreserve(Member _nullreserver){
 	isReserved = false;
-	reserver = "N/A";
+	reserver = _nullreserver;
 }
