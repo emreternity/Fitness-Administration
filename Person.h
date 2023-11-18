@@ -8,6 +8,7 @@ using namespace std;
 
 class Person {
 	protected:
+		int id;
 		string fname;
 		string lname;
 		int age;
@@ -32,6 +33,9 @@ class Person {
 		string getBirthdate() const;
 
 		string getName() const;
+
+		void setID(int _id);
+		int getID() const;
 };
 
 

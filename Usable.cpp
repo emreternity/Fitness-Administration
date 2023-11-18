@@ -3,9 +3,10 @@
 #include <stdexcept>
 #include <algorithm>
 
-Usable::isReserved = false;
-
-Usable::Usable(int _capacity, const string &_name, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, Member _reserver = Member("N/A","N/A",20,90,50,"01/01/2000","silver","nullreserver@gmail.com",1){
+Usable::Usable(int _capacity, const string &_name, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, bool _isReserved = false, const string &_reserver = "N/A") {
+	isReserved = _isReserved;
+	reserver = _reserver;
+	
 	setCapacity(_capacity);
 	setName(_name);
 	setUsableType(_usableType);
@@ -31,8 +32,9 @@ void Usable::setName(const string &_name){
 }
 
 void Usable::setUsableType(const string &_usableType){
-	transform(_usabletype.begin(), _usabletype.end(), _usabletype.begin(), ::tolower);
-	if (_usableType == "equipment" || _usableType = "pool" || _usableType = "sauna"){
+	transform(_usableType.begin(), _usableType.end(), _usableType.begin(), ::tolower);
+
+	if (_usableType == "equipment" || _usableType == "pool" || _usableType == "sauna"){
 		usableType = _usableType;
 	}
 	else {
@@ -52,16 +54,6 @@ void Usable::setAccessLevel(const string &_accessLevel){
 
 void Usable::setIsReservable(bool _isReservable){
 	isReservable = _isReservable;
-}
-
-void Usable::setReserver(Member _reserver){
-	if (isReservable == true){
-		reserver = _reserver;
-		isReserved = true;
-	}
-	else {
-		throw logic_error("Nesne rezerve edilmeye uygun degil.");
-	}
 }
 
 int Usable::getCapacity() const{
@@ -88,12 +80,12 @@ bool Usable::getIsReserved() const{
 	return isReserved;
 }
 
-Member Usable::getReserver() const{
+string Usable::getReserver() const{
 	return reserver;
 }
 
-void Usable::reserve(Member _reserver){
-	if (isReservable == true){
+void Usable::reserve(const string &_reserver){
+	if (isReservable == true && isReserved == false) {
 		isReserved = true;
 		reserver = _reserver;
 	}
@@ -102,11 +94,8 @@ void Usable::reserve(Member _reserver){
 	}
 }
 
+
 void Usable::unreserve(){
 	isReserved = false;
-	reserver = Member("N/A","N/A",20,90,50,"01/01/2000","silver","nullreserver@gmail.com",1);
-}
-
-string Usable::getReserverInfo() const{
-	return reserver.fname + " " + reserver.lname + " - " + reserver.membertype; 
+	reserver = "N/A";
 }

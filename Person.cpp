@@ -95,3 +95,11 @@ string Person::getBirthdate() const {
 string Person::getName() const {
 	return fname + " " + lname;
 }
+
+void Person::setID(int _id) {
+	// MySQL integration
+}
+
+int Person::getID() const {
+	// MySQL
+}

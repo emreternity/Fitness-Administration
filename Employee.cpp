@@ -91,20 +91,20 @@ Employee::Employee(const string &_fname, const string &_lname, int _age, float _
      return workdays;
  }
   
- void Employee::setEmployeeType(const string &_employeetype = "Gorevli") {
+ void Employee::setEmployeeType(const string &_employeetype = "gorevli") {
  	
-     if (_employeetype != "Gorevli" || _employeetype != "Temizlikci" || _employeetype != "Egitmen") {
+     if (_employeetype != "gorevli" || _employeetype != "temizlikci" || _employeetype != "egitmen") {
          throw invalid_argument("Gecersiz calisan tipi girdiniz.");
     }
      else {
          employeetype = _employeetype;
-         if (_employeetype == "Gorevli") {
+         if (_employeetype == "gorevli") {
              basesalary = gorevlisalary;
          }
-         else if (_employeetype == "Temizlikci") {
+         else if (_employeetype == "temizlikci") {
              basesalary = temizlikcisalary;
          }
-         else if (_employeetype == "Egitmen") {
+         else if (_employeetype == "egitmen") {
              basesalary = ptsalary;
          }
      }
