@@ -6,21 +6,16 @@
 
 class Usable {
 	private:
-		int capacity;
-		string name;
-		string usableType;
-		string accessLevel;
-		bool isReservable;
-		bool isReserved;
+		int id;
 		Member reserver;
 		
 	public:
-		explicit Usable(int _capacity, const string &_name, Member _reserver, const string &_usableType = "equipment", const string &_accessLevel = "silver", bool _isReservable = true, bool _isReserved = false);
+		explicit Usable(int _capacity, string _name, Member _reserver, string _usableType = "equipment", string _accessLevel = "silver", bool _isReservable = true, bool _isReserved = false);
 		~Usable();
 		void setCapacity(int _capacity);
-		void setName(const string &_name);
-		void setUsableType(const string &_usableType);
-		void setAccessLevel(const string &_accessLevel);
+		void setName(string _name);
+		void setUsableType(string _usableType);
+		void setAccessLevel(string _accessLevel);
 		void setIsReservable(bool _isReservable);
 		
 		int getCapacity() const;

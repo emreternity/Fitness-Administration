@@ -9,19 +9,13 @@ using namespace std;
 class Person {
 	protected:
 		int id;
-		string fname;
-		string lname;
-		int age;
-		float weight;
-		float height;
-		string birthdate;
 	public:
-		explicit Person(const string &_fname, const string &_lname, int _age, float _weight, float _height, const string &_birthdate);
+		explicit Person(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate);
 		~Person();
 
-		void setFirstName(const string &_fname);
+		void setFirstName(string _fname);
 		string getFirstName() const;
-		void setLastName(const string &_lname);
+		void setLastName(string _lname);
 		string getLastName() const;
 		void setAge(int _age);
 		int getAge() const;
@@ -29,7 +23,7 @@ class Person {
 		float getWeight() const;
 		void setHeight(float _height);
 		float getHeight() const;
-		void setBirthdate(const string &_birthdate);
+		void setBirthdate(string _birthdate);
 		string getBirthdate() const;
 
 		string getName() const;

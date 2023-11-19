@@ -6,30 +6,24 @@
 
 class Employee : public Person {
 private:
-	float basesalary;
-	string startingdate;
-	string leavingdate;
-	string employeetype;
-	int offdays;
-	int workdays;
 	static float temizlikcisalary;
 	static float gorevlisalary;
 	static float ptsalary;
 
 public:
-	explicit Employee(const string& _fname, const string& _lname, int _age, float _weight, float _height, const string& _birthdate, const string& _startingdate, int _workdays, const string& _leavingdate = "N/A", float _basesalary = 11402.32, const string& _employeetype = "Gorevli");
+	explicit Employee(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, string _leavingdate = "N/A", float _basesalary = 11402.32, string _employeetype = "Gorevli");
 	~Employee();
 
 	void setBaseSalary(float _basesalary = 11402.32);
 	float getBaseSalary() const;
 
-	void setStartingDate(const string& _startingdate);
+	void setStartingDate(string _startingdate);
 	string getStartingDate() const;
 
-	void setLeavingDate(const string& _leavingdate = "N/A");
+	void setLeavingDate(string _leavingdate = "N/A");
 	string getLeavingDate() const;
 
-	void setEmployeeType(const string& _employeetype = "Gorevli");
+	void setEmployeeType(string _employeetype = "Gorevli");
 	string getEmployeeType()  const;
 
 	void setOffDays(int _offdays = 0);
