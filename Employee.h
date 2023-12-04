@@ -6,6 +6,12 @@
 
 class Employee : public Person {
 private:
+	float basesalary;
+	string startingdate;
+	string leavingdate;
+	string employeetype;
+	int offdays;
+	int workdays;
 	static float temizlikcisalary;
 	static float gorevlisalary;
 	static float ptsalary;

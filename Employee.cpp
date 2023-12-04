@@ -2,10 +2,9 @@
 #include "Person.h"
 #include <string>
 #include <stdexcept>
-#include <iostream>
-#include <algorithm>
 
-#include "sqlstuff.h"
+
+#include <iostream>
 
 using namespace std;
 
@@ -14,49 +13,27 @@ float Employee::gorevlisalary = 25000;
 float Employee::ptsalary = 35000;
 
 Employee::Employee(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, string _leavingdate, float _basesalary, string _employeetype) : Person(_fname, _lname, _age, _weight, _height, _birthdate) {
-    tryCon();
-    schemaFunc();
-
-    pstmt = con->prepareStatement("INSERT INTO employee(fname,lname,age,weight,height,birthdate,startingdate,workdays,leavingdate,basesalary,employeetype) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-    pstmt->setString(1, _fname);
-    pstmt->setString(2, _lname);
-    pstmt->setInt(3, _age);
-    pstmt->setDouble(4, _weight);
-    pstmt->setDouble(5, _height);
-    pstmt->setString(6, _birthdate);
-    pstmt->setString(7, _startingdate);
-    pstmt->setInt(8, _workdays);
-    pstmt->setString(9, _leavingdate);
-    pstmt->setDouble(10, _basesalary);
-    pstmt->setString(11, _employeetype);
-    pstmt->execute();
-
-    delete pstmt;
-
-    pstmt = con->prepareStatement("SELECT MAX(id) FROM employee;");
-    result = pstmt->executeQuery();
-    while (result->next())
-        id = result->getInt(1);
-
-    delete result;
-    delete pstmt;
+	setFirstName(_fname);
+	setLastName(_lname);
+	setAge(_age);
+	setWeight(_weight);
+	setHeight(_height);
+	setBirthdate(_birthdate);
+    setStartingDate(_startingdate);
+    setWorkDays(_workdays);
+    setLeavingDate(_leavingdate);
+    setBaseSalary(_basesalary);
+    setEmployeeType(_employeetype); 
 }
 
  Employee::~Employee(){
-     pstmt = con->prepareStatement("DELETE FROM employee WHERE id = ?");
-     pstmt->setInt(1, id);
-
-     delete pstmt;
+ 	
  }
  
  void Employee::setBaseSalary(float _basesalary){
  	
  		if (_basesalary > 0) {
-            pstmt = con->prepareStatement("UPDATE employee SET basesalary = ? WHERE id = ?");
-            pstmt->setDouble(1, _basesalary);
-            pstmt->setInt(2, id);
-            pstmt->executeQuery();
-            delete pstmt;
+		basesalary = _basesalary;
 	}
 	else {
 		throw invalid_argument("Baz maas 0'dan kucuk olamaz.");
@@ -65,59 +42,32 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
  }
  
  float Employee::getBaseSalary() const{
-     pstmt = con->prepareStatement("SELECT basesalary FROM employee WHERE id = ?;");
-     pstmt->setInt(1, id);
-     result = pstmt->executeQuery();
-     while (result->next())
-         return result->getDouble(1);
-     delete result;
+ 	return basesalary;
  }
  
  void Employee::setStartingDate(string _startingdate){
  	
-     pstmt = con->prepareStatement("UPDATE employee SET startingdate = ? WHERE id = ?");
-     pstmt->setString(1, _startingdate);
-     pstmt->setInt(2, id);
-     pstmt->executeQuery();
-     delete pstmt;
+ 	startingdate = _startingdate;
  	
  }
  
  string Employee::getStartingDate() const{
-     pstmt = con->prepareStatement("SELECT startingdate FROM employee WHERE id = ?;");
-     pstmt->setInt(1, id);
-     result = pstmt->executeQuery();
-     while (result->next())
-         return result->getString(1);
-     delete result;
+ 	return startingdate;
  }
  
  void Employee::setLeavingDate(string _leavingdate) {
  	
-     pstmt = con->prepareStatement("UPDATE employee SET leavingdate = ? WHERE id = ?");
-     pstmt->setString(1, _leavingdate);
-     pstmt->setInt(2, id);
-     pstmt->executeQuery();
-     delete pstmt;
+ 	leavingdate= _leavingdate;
  	
  }
  
  string Employee::getLeavingDate() const{
-     pstmt = con->prepareStatement("SELECT leavingdate FROM employee WHERE id = ?;");
-     pstmt->setInt(1, id);
-     result = pstmt->executeQuery();
-     while (result->next())
-         return result->getString(1);
-     delete result;
+ 	return leavingdate;
  }
  
  void Employee::setOffDays(int _offdays){
  	if (_offdays > 0) {
-        pstmt = con->prepareStatement("UPDATE employee SET offdays = ? WHERE id = ?");
-        pstmt->setInt(1, _offdays);
-        pstmt->setInt(2, id);
-        pstmt->executeQuery();
-        delete pstmt;
+		offdays = _offdays;
 	}
 	else {
 		throw invalid_argument("Offday sayisi sifirdan buyuk olmali.");
@@ -125,21 +75,12 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
  }
  
  int Employee::getOffDays() const{
-     pstmt = con->prepareStatement("SELECT offdays FROM employee WHERE id = ?;");
-     pstmt->setInt(1, id);
-     result = pstmt->executeQuery();
-     while (result->next())
-         return result->getInt(1);
-     delete result;
+ 	return offdays;
   }
 
  void Employee::setWorkDays(int _workdays) {
-     if (_workdays > 0 && _workdays < 31) {
-         pstmt = con->prepareStatement("UPDATE employee SET workdays = ? WHERE id = ?");
-         pstmt->setInt(1, _workdays);
-         pstmt->setInt(2, id);
-         pstmt->executeQuery();
-         delete pstmt;
+     if (_workdays > 0 && workdays < 31) {
+         workdays = _workdays;
      }
      else {
          throw invalid_argument("Workday sayisi sifirdan buyuk olmali.");
@@ -147,66 +88,35 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
  }
 
  int Employee::getWorkDays() const {
-     pstmt = con->prepareStatement("SELECT workdays FROM employee WHERE id = ?;");
-     pstmt->setInt(1, id);
-     result = pstmt->executeQuery();
-     while (result->next())
-         return result->getInt(1);
-     delete result;
+     return workdays;
  }
   
  void Employee::setEmployeeType(string _employeetype) {
-     transform(_employeetype.begin(), _employeetype.end(), _employeetype.begin(), ::tolower);
-     if (_employeetype != "gorevli" || _employeetype != "temizlikci" || _employeetype != "egitmen") {
-         throw invalid_argument("Gecersiz calisan tipi girdiniz.");
-    }
-     else {
-         pstmt = con->prepareStatement("UPDATE employee SET employeetype = ? WHERE id = ?");
-         pstmt->setString(1, _employeetype);
-         pstmt->setInt(2, id);
-         pstmt->executeQuery();
-         delete pstmt;
-
+ 	
+     if (_employeetype == "gorevli" || _employeetype == "temizlikci" || _employeetype == "egitmen") {
+                  employeetype = _employeetype;
          if (_employeetype == "gorevli") {
-             pstmt = con->prepareStatement("UPDATE employee SET basesalary = ? WHERE id = ?");
-             pstmt->setDouble(1, gorevlisalary);
-             pstmt->setInt(2, id);
-             pstmt->executeQuery();
-             delete pstmt;
+             basesalary = gorevlisalary;
          }
          else if (_employeetype == "temizlikci") {
-             pstmt = con->prepareStatement("UPDATE employee SET basesalary = ? WHERE id = ?");
-             pstmt->setDouble(1, temizlikcisalary);
-             pstmt->setInt(2, id);
-             pstmt->executeQuery();
-             delete pstmt;
+             basesalary = temizlikcisalary;
          }
          else if (_employeetype == "egitmen") {
-             pstmt = con->prepareStatement("UPDATE employee SET basesalary = ? WHERE id = ?");
-             pstmt->setDouble(1, ptsalary);
-             pstmt->setInt(2, id);
-             pstmt->executeQuery();
-             delete pstmt;
+             basesalary = ptsalary;
          }
+    }
+     else {
+         throw invalid_argument("Gecersiz calisan tipi girdiniz.");
      }
  	
  }
  
  string Employee::getEmployeeType() const{
-     pstmt = con->prepareStatement("SELECT employeetype FROM employee WHERE id = ?;");
-     pstmt->setInt(1, id);
-     result = pstmt->executeQuery();
-     while (result->next())
-         return result->getString(1);
-     delete result;
+ 	return employeetype;
  }
  
  float Employee::calculateSalary() {
-     float tbasesalary = getBaseSalary();
-     int tworkdays = getWorkDays();
-     int toffdays = getOffDays();
-
-     return tbasesalary - ((tbasesalary / tworkdays) * toffdays);
+     return basesalary - ((basesalary / workdays) * offdays);
  }
 
  void Employee::setDefaultSalaries(float _temizlikcisalary, float _gorevlisalary, float _ptsalary) {

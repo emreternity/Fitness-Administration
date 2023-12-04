@@ -6,7 +6,12 @@
 
 class Usable {
 	private:
-		int id;
+		int capacity;
+		string name;
+		string usableType;
+		string accessLevel;
+		bool isReservable;
+		bool isReserved;
 		Member reserver;
 		
 	public:

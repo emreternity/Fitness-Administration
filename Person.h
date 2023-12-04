@@ -9,6 +9,12 @@ using namespace std;
 class Person {
 	protected:
 		int id;
+		string fname;
+		string lname;
+		int age;
+		float weight;
+		float height;
+		string birthdate;
 	public:
 		explicit Person(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate);
 		~Person();
