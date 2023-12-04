@@ -104,3 +104,14 @@ void Person::setID(int _id) {
 int Person::getID() const {
 	// MySQL
 }
+
+void Person::seeValues() const{
+	cout<<"First Name: "<<getFirstName()<<endl;
+	cout<<"Last Name: "<<getLastName()<<endl;
+	cout<<"Full Name: "<<getName()<<endl;
+	cout<<"Age: "<<getAge()<<endl;
+	cout<<"Weight: "<<getWeight()<<endl;
+	cout<<"Height: "<<getHeight()<<endl;
+	cout<<"Birthdate: "<<getBirthdate()<<endl;
+	cout<<"Test Over."<<endl<<endl;
+}

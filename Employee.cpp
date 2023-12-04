@@ -12,7 +12,7 @@ float Employee::temizlikcisalary = 15000;
 float Employee::gorevlisalary = 25000;
 float Employee::ptsalary = 35000;
 
-Employee::Employee(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, string _leavingdate, float _basesalary, string _employeetype) : Person(_fname, _lname, _age, _weight, _height, _birthdate) {
+Employee::Employee(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, float _basesalary, string _employeetype, int _offdays, string _leavingdate) : Person(_fname, _lname, _age, _weight, _height, _birthdate) {
 	setFirstName(_fname);
 	setLastName(_lname);
 	setAge(_age);
@@ -22,8 +22,9 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
     setStartingDate(_startingdate);
     setWorkDays(_workdays);
     setLeavingDate(_leavingdate);
-    setBaseSalary(_basesalary);
     setEmployeeType(_employeetype); 
+    setBaseSalary(_basesalary);
+    setOffDays(_offdays);
 }
 
  Employee::~Employee(){
@@ -66,11 +67,11 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
  }
  
  void Employee::setOffDays(int _offdays){
- 	if (_offdays > 0) {
+ 	if (_offdays >= 0) {
 		offdays = _offdays;
 	}
 	else {
-		throw invalid_argument("Offday sayisi sifirdan buyuk olmali.");
+		throw invalid_argument("Offday sayisi negatif olamaz.");
 	}
  }
  
@@ -115,7 +116,7 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
  	return employeetype;
  }
  
- float Employee::calculateSalary() {
+ float Employee::calculateSalary() const{
      return basesalary - ((basesalary / workdays) * offdays);
  }
 
@@ -125,6 +126,23 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
      ptsalary = _ptsalary;
  }
 
+void Employee::seeValues() const{
+	cout<<"First Name: "<<getFirstName()<<endl;
+	cout<<"Last Name: "<<getLastName()<<endl;
+	cout<<"Full Name: "<<getName()<<endl;
+	cout<<"Age: "<<getAge()<<endl;
+	cout<<"Weight: "<<getWeight()<<endl;
+	cout<<"Height: "<<getHeight()<<endl;
+	cout<<"Birthdate: "<<getBirthdate()<<endl;
+	cout<<"Starting Date: "<<getStartingDate()<<endl;
+	cout<<"Leaving Date: "<<getLeavingDate()<<endl;
+	cout<<"Workdays: "<<getWorkDays()<<endl;
+	cout<<"Offdays: "<<getOffDays()<<endl;
+	cout<<"Base Salary: "<<getBaseSalary()<<endl;
+	cout<<"Calc Salary: "<<calculateSalary()<<endl;
+	cout<<"Emp Type: "<<getEmployeeType()<<endl;
+	cout<<"Test Over."<<endl<<endl;
+}
 
 
 

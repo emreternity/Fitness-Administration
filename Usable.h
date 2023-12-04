@@ -33,6 +33,8 @@ class Usable {
 		
 		void reserve(Member _reserver);
 		void unreserve(Member _nullreserver);
+		
+		void seeValues() const;
 };
 
 #endif // !USABLE_H

@@ -39,6 +39,7 @@ public:
 	
 	int getLevel() const;
 	void setLevel(int _level = 1);
+	void seeValues() const;
 };
 
 #endif // !MEMBER_H

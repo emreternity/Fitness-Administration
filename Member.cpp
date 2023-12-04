@@ -70,7 +70,7 @@ string Member::getEmail() const {
 }
 
 void Member::setBalance(float _balance) {
-	if (_balance > 0) {
+	if (_balance >= 0) {
 		balance = _balance;
 	}
 	else {
@@ -96,7 +96,7 @@ float Member::getWeightGoal() const {
 }
 
 void Member::setXP(int _xp) {
-	if (_xp > 0) {
+	if (_xp >= 0) {
 		xp = _xp;
 	}
 	else {
@@ -131,3 +131,21 @@ int Member::getLevel() const {
 	return level;
 }
 
+void Member::seeValues() const {
+	cout<<"First Name: "<<getFirstName()<<endl;
+	cout<<"Last Name: "<<getLastName()<<endl;
+	cout<<"Full Name: "<<getName()<<endl;
+	cout<<"Age: "<<getAge()<<endl;
+	cout<<"Weight: "<<getWeight()<<endl;
+	cout<<"Height: "<<getHeight()<<endl;
+	cout<<"Birthdate: "<<getBirthdate()<<endl;
+	cout<<"Membertype: "<<getMemberType()<<endl;
+	cout<<"Regdate: "<<getRegdate()<<endl;
+	cout<<"Email: "<<getEmail()<<endl;
+	cout<<"Balance: "<<getBalance()<<endl;
+	cout<<"Weight Goal: "<<getWeightGoal()<<endl;
+	cout<<"XP: "<<getXP()<<endl;
+	cout<<"Level: "<<getLevel()<<endl;
+	
+	cout<<"Test Over."<<endl<<endl;
+}

@@ -17,7 +17,7 @@ private:
 	static float ptsalary;
 
 public:
-	explicit Employee(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, string _leavingdate = "N/A", float _basesalary = 11402.32, string _employeetype = "Gorevli");
+	explicit Employee(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, float _basesalary = 11402.32, string _employeetype = "gorevli", int _offdays = 0, string _leavingdate = "N/A");
 	~Employee();
 
 	void setBaseSalary(float _basesalary = 11402.32);
@@ -38,9 +38,11 @@ public:
 	void setWorkDays(int _workdays = 1);
 	int getWorkDays() const;
 
-	float calculateSalary();
+	float calculateSalary() const;
 
 	static void setDefaultSalaries(float _temizlikcisalary, float _gorevlisalary, float _ptsalary);
+	
+	void seeValues() const;
 
 };
 

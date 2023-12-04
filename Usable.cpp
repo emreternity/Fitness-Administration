@@ -98,3 +98,14 @@ void Usable::unreserve(Member _nullreserver){
 	isReserved = false;
 	reserver = _nullreserver;
 }
+
+void Usable::seeValues() const{
+	cout<<"Name: "<<getName()<<endl;
+	cout<<"Type: "<<getUsableType()<<endl;
+	cout<<"Acc. Level: "<<getAccessLevel()<<endl;
+	cout<<"Capacity: "<<getCapacity()<<endl;
+	cout<<"Is Reservable? "<<getIsReservable()<<endl;
+	cout<<"Is Reserved? "<<getIsReserved()<<endl;
+	cout<<"Reserver Name: "<<reserver.getName()<<endl;
+	cout<<"Test Over."<<endl<<endl;
+}

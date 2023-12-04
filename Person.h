@@ -18,7 +18,7 @@ class Person {
 	public:
 		explicit Person(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate);
 		~Person();
-
+		
 		void setFirstName(string _fname);
 		string getFirstName() const;
 		void setLastName(string _lname);
@@ -36,6 +36,8 @@ class Person {
 
 		void setID(int _id);
 		int getID() const;
+		
+		void seeValues() const;
 };
 
 
