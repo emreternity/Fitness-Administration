@@ -6,6 +6,10 @@
 
 class Usable {
 	private:
+		void insertSQL(Connection* con);
+		void updateSQL(Connection* con);
+		
+		int id;
 		int capacity;
 		string name;
 		string usableType;
@@ -33,6 +37,8 @@ class Usable {
 		
 		void reserve(Member _reserver);
 		void unreserve(Member _nullreserver);
+		
+		int getID() const;
 		
 		void seeValues() const;
 };

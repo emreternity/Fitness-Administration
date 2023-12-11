@@ -144,7 +144,53 @@ void Employee::seeValues() const{
 	cout<<"Test Over."<<endl<<endl;
 }
 
+void Employee::insertSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+	sql::ResultSet* result;
+	
+	pstmt = con->prepareStatement("INSERT INTO employee(fname,lname,age,weight,height,birthdate,startingdate,workdays,leavingdate,basesalary,employeetype) VALUES(?,?,?,?,?,?,?,?,?,?,?);");
+    pstmt->setString(1, fname);
+    pstmt->setString(2, lname);
+    pstmt->setInt(3, age);
+    pstmt->setDouble(4, weight);
+    pstmt->setDouble(5, height);
+    pstmt->setString(6, birthdate);
+    pstmt->setString(7, startingdate);
+    pstmt->setInt(8, workdays);
+    pstmt->setString(9, leavingdate);
+    pstmt->setDouble(10, basesalary);
+    pstmt->setString(11, employeetype);
+    pstmt->execute();
+	
+	pstmt = con->prepareStatement("SELECT MAX(id) FROM employee;");
+	result = pstmt->executeQuery();
+	while (result->next())
+	id = result->getInt(1);
 
+	delete pstmt;
+	delete result;
+}
+
+void Employee::updateSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+		
+	pstmt = con->prepareStatement("UPDATE employee SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,startingdate = ?, workdays = ?, leavingdate = ?, basesalary = ?, employeetype = ? WHERE id = ?");
+    pstmt->setString(1, _fname);
+    pstmt->setString(2, _lname);
+    pstmt->setInt(3, _age);
+    pstmt->setDouble(4, _weight);
+    pstmt->setDouble(5, _height);
+    pstmt->setString(6, _birthdate);
+    pstmt->setString(7, _startingdate);
+    pstmt->setInt(8, _workdays);
+    pstmt->setString(9, _leavingdate);
+    pstmt->setDouble(10, _basesalary);
+    pstmt->setString(11, _employeetype);
+	pstmt->setInt(12, id);
+	pstmt->executeQuery();
+	
+	delete pstmt;
+}
 
 
 

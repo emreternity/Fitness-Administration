@@ -6,6 +6,9 @@
 
 class Employee : public Person {
 private:
+	void insertSQL(Connection* con);
+	void updateSQL(Connection* con);
+	
 	float basesalary;
 	string startingdate;
 	string leavingdate;

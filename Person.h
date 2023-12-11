@@ -1,12 +1,7 @@
 #ifndef PERSON_H
 #define PERSON_H
-
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-class Person {
+		void insertSQL(Connection* con);
+		void updateSQL(Connection* con);
 	protected:
 		int id;
 		string fname;
@@ -34,7 +29,6 @@ class Person {
 
 		string getName() const;
 
-		void setID(int _id);
 		int getID() const;
 		
 		void seeValues() const;

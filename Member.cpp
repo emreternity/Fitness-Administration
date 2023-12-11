@@ -131,6 +131,11 @@ int Member::getLevel() const {
 	return level;
 }
 
+int Member::calculateBMI() const {
+	int heightinmeters = height / 100;
+	return weight / (heightinmeters * heightinmeters);
+}
+
 void Member::seeValues() const {
 	cout<<"First Name: "<<getFirstName()<<endl;
 	cout<<"Last Name: "<<getLastName()<<endl;
@@ -148,4 +153,52 @@ void Member::seeValues() const {
 	cout<<"Level: "<<getLevel()<<endl;
 	
 	cout<<"Test Over."<<endl<<endl;
+}
+
+void Member::insertSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+	sql::ResultSet* result;
+	
+	pstmt = con->prepareStatement("INSERT INTO member(fname,lname,age,weight,height,birthdate,membertype,email,wgoal,balance,xp) VALUES(?,?,?,?,?,?,?,?,?,?,?);");
+	pstmt->setString(1, fname);
+	pstmt->setString(2, lname);
+	pstmt->setInt(3, age);
+	pstmt->setDouble(4, weight);
+	pstmt->setDouble(5, height);
+	pstmt->setString(6, birthdate);
+	pstmt->setString(7, membertype);
+	pstmt->setString(8, email);
+	pstmt->setDouble(9, wgoal);
+	pstmt->setDouble(10, balance);
+	pstmt->setDouble(11, xp);
+	pstmt->execute();
+	
+	pstmt = con->prepareStatement("SELECT MAX(id) FROM member;");
+	result = pstmt->executeQuery();
+	while (result->next())
+	id = result->getInt(1);
+
+	delete pstmt;
+	delete result;
+}
+
+void Member::updateSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+		
+	pstmt = con->prepareStatement("UPDATE member SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,membertype = ?, email = ?, wgoal = ?, balance = ?, xp = ? WHERE id = ?");
+	pstmt->setString(1, fname);
+	pstmt->setString(2, lname);
+	pstmt->setInt(3, age);
+	pstmt->setDouble(4, weight);
+	pstmt->setDouble(5, height);
+	pstmt->setString(6, birthdate);
+	pstmt->setString(7, membertype);
+	pstmt->setString(8, email);
+	pstmt->setDouble(9, wgoal);
+	pstmt->setDouble(10, balance);
+	pstmt->setDouble(11, xp);
+	pstmt->setInt(12, id);
+	pstmt->executeQuery();
+	
+	delete pstmt;
 }

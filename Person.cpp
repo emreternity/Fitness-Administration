@@ -2,6 +2,12 @@
 #include <string>
 #include <iostream>
 #include <stdexcept>
+#include <mysql_connection.h>
+#include <mysql_driver.h>
+#include <mysql_error.h>
+#include <cppconn/driver.h>
+#include <cppconn/exception.h>
+#include <cppconn/prepared_statement.h>
 
 using namespace std;
 
@@ -97,12 +103,8 @@ string Person::getName() const {
 	return fname + " " + lname;
 }
 
-void Person::setID(int _id) {
-	// MySQL integration
-}
-
 int Person::getID() const {
-	// MySQL
+	return id;
 }
 
 void Person::seeValues() const{
@@ -114,4 +116,41 @@ void Person::seeValues() const{
 	cout<<"Height: "<<getHeight()<<endl;
 	cout<<"Birthdate: "<<getBirthdate()<<endl;
 	cout<<"Test Over."<<endl<<endl;
+}
+
+void Person::insertSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+	sql::ResultSet* result;
+	pstmt = con->prepareStatement("INSERT INTO person(fname,lname,age,weight,height,birthdate) VALUES(?,?,?,?,?,?);");
+	pstmt->setString(1, fname);
+	pstmt->setString(2, lname);
+	pstmt->setInt(3, age);
+	pstmt->setDouble(4, weight);
+	pstmt->setDouble(5, height);
+	pstmt->setString(6, birthdate);
+	pstmt->execute();
+	
+	pstmt = con->prepareStatement("SELECT MAX(id) FROM person;");
+	result = pstmt->executeQuery();
+	while (result->next())
+	id = result->getInt(1);
+
+	delete pstmt;
+	delete result;
+}
+
+void Person::updateSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+		
+	pstmt = con->prepareStatement("UPDATE person SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ? WHERE id = ?");
+	pstmt->setString(1, fname);
+	pstmt->setString(2, lname);
+	pstmt->setInt(3, age);
+	pstmt->setDouble(4, weight);
+	pstmt->setDouble(5, height);
+	pstmt->setString(6, birthdate);
+	pstmt->setInt(7, id);
+	pstmt->executeQuery();
+	
+	delete pstmt;
 }

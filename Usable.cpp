@@ -99,6 +99,11 @@ void Usable::unreserve(Member _nullreserver){
 	reserver = _nullreserver;
 }
 
+int Usable::getID() const {
+	return id;
+}
+
+
 void Usable::seeValues() const{
 	cout<<"Name: "<<getName()<<endl;
 	cout<<"Type: "<<getUsableType()<<endl;
@@ -108,4 +113,44 @@ void Usable::seeValues() const{
 	cout<<"Is Reserved? "<<getIsReserved()<<endl;
 	cout<<"Reserver Name: "<<reserver.getName()<<endl;
 	cout<<"Test Over."<<endl<<endl;
+}
+
+void Usable::insertSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+	sql::ResultSet* result;
+	
+	pstmt = con->prepareStatement("INSERT INTO usable(capacity,name,reserverName,usableType,accessLevel,isReservable,isReserved) VALUES(?,?,?,?,?,?,?);");
+	pstmt->setInt(1, capacity);
+	pstmt->setString(2, name);
+	pstmt->setString(3, reserver.getName());
+	pstmt->setString(4, usableType);
+	pstmt->setString(5, accessLevel);
+	pstmt->setBoolean(6, isReservable);
+	pstmt->setBoolean(7, isReserved);
+	pstmt->execute();
+	
+	pstmt = con->prepareStatement("SELECT MAX(id) FROM usable;");
+	result = pstmt->executeQuery();
+	while (result->next())
+	id = result->getInt(1);
+
+	delete pstmt;
+	delete result;
+}
+
+void Usable::updateSQL(Connection* con){
+	sql::PreparedStatement* pstmt;
+		
+	pstmt = con->prepareStatement("UPDATE usable SET capacity = ?,name = ?,reserverName = ?,usableType = ?,accessLevel = ? ,isReservable = ?, isReserved = ? WHERE id = ?");
+	pstmt->setInt(1, _capacity);
+	pstmt->setString(2, _name);
+	pstmt->setString(3, _reserver.getName());
+	pstmt->setString(4, _usableType);
+	pstmt->setString(5, _accessLevel);
+	pstmt->setBoolean(6, _isReservable);
+	pstmt->setBoolean(7, _isReserved);
+	pstmt->setInt(8, id);
+	pstmt->executeQuery();
+	
+	delete pstmt;
 }
