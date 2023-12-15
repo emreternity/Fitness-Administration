@@ -118,7 +118,7 @@ void Person::seeValues() const{
 	cout<<"Test Over."<<endl<<endl;
 }
 
-void Person::insertSQL(Connection* con){
+void Person::insertSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 	pstmt = con->prepareStatement("INSERT INTO person(fname,lname,age,weight,height,birthdate) VALUES(?,?,?,?,?,?);");
@@ -139,7 +139,7 @@ void Person::insertSQL(Connection* con){
 	delete result;
 }
 
-void Person::updateSQL(Connection* con){
+void Person::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
 	pstmt = con->prepareStatement("UPDATE person SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ? WHERE id = ?");

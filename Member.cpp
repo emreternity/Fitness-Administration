@@ -155,7 +155,7 @@ void Member::seeValues() const {
 	cout<<"Test Over."<<endl<<endl;
 }
 
-void Member::insertSQL(Connection* con){
+void Member::insertSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 	
@@ -182,7 +182,7 @@ void Member::insertSQL(Connection* con){
 	delete result;
 }
 
-void Member::updateSQL(Connection* con){
+void Member::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
 	pstmt = con->prepareStatement("UPDATE member SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,membertype = ?, email = ?, wgoal = ?, balance = ?, xp = ? WHERE id = ?");

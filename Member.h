@@ -11,10 +11,7 @@ class Member : public Person{
 
 	friend class Usable;
 
-private:
-	void insertSQL(Connection* con);
-	void updateSQL(Connection* con);
-	
+private:	
 	string membertype;
 	string regdate;
 	int xp;
@@ -45,6 +42,9 @@ public:
 	void seeValues() const;
 	
 	int calculateBMI() const;
+
+	void insertSQL(sql::Connection* con);
+	void updateSQL(sql::Connection* con);
 };
 
 #endif // !MEMBER_H

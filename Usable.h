@@ -6,9 +6,6 @@
 
 class Usable {
 	private:
-		void insertSQL(Connection* con);
-		void updateSQL(Connection* con);
-		
 		int id;
 		int capacity;
 		string name;
@@ -41,6 +38,10 @@ class Usable {
 		int getID() const;
 		
 		void seeValues() const;
+
+		void insertSQL(sql::Connection* con);
+		void updateSQL(sql::Connection* con);
+
 };
 
 #endif // !USABLE_H

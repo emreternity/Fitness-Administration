@@ -4,11 +4,11 @@
 #include "Person.h"
 #include <string>
 
+using namespace std;
+
 class Employee : public Person {
+
 private:
-	void insertSQL(Connection* con);
-	void updateSQL(Connection* con);
-	
 	float basesalary;
 	string startingdate;
 	string leavingdate;
@@ -47,6 +47,8 @@ public:
 	
 	void seeValues() const;
 
+	void insertSQL(sql::Connection* con);
+	void updateSQL(sql::Connection* con);
 };
 
 

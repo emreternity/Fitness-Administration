@@ -115,7 +115,7 @@ void Usable::seeValues() const{
 	cout<<"Test Over."<<endl<<endl;
 }
 
-void Usable::insertSQL(Connection* con){
+void Usable::insertSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 	
@@ -138,17 +138,17 @@ void Usable::insertSQL(Connection* con){
 	delete result;
 }
 
-void Usable::updateSQL(Connection* con){
+void Usable::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
 	pstmt = con->prepareStatement("UPDATE usable SET capacity = ?,name = ?,reserverName = ?,usableType = ?,accessLevel = ? ,isReservable = ?, isReserved = ? WHERE id = ?");
-	pstmt->setInt(1, _capacity);
-	pstmt->setString(2, _name);
-	pstmt->setString(3, _reserver.getName());
-	pstmt->setString(4, _usableType);
-	pstmt->setString(5, _accessLevel);
-	pstmt->setBoolean(6, _isReservable);
-	pstmt->setBoolean(7, _isReserved);
+	pstmt->setInt(1, capacity);
+	pstmt->setString(2, name);
+	pstmt->setString(3, reserver.getName());
+	pstmt->setString(4, usableType);
+	pstmt->setString(5, accessLevel);
+	pstmt->setBoolean(6, isReservable);
+	pstmt->setBoolean(7, isReserved);
 	pstmt->setInt(8, id);
 	pstmt->executeQuery();
 	
