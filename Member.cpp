@@ -159,7 +159,7 @@ void Member::insertSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 	
-	pstmt = con->prepareStatement("INSERT INTO member(fname,lname,age,weight,height,birthdate,membertype,email,wgoal,balance,xp) VALUES(?,?,?,?,?,?,?,?,?,?,?);");
+	pstmt = con->prepareStatement("INSERT INTO member(fname,lname,age,weight,height,birthdate,membertype,regdate,xp,email,balance,wgoal) VALUES(?,?,?,?,?,?,?,?,?,?,?,?);");
 	pstmt->setString(1, fname);
 	pstmt->setString(2, lname);
 	pstmt->setInt(3, age);
@@ -167,10 +167,11 @@ void Member::insertSQL(sql::Connection* con){
 	pstmt->setDouble(5, height);
 	pstmt->setString(6, birthdate);
 	pstmt->setString(7, membertype);
-	pstmt->setString(8, email);
-	pstmt->setDouble(9, wgoal);
-	pstmt->setDouble(10, balance);
-	pstmt->setDouble(11, xp);
+	pstmt->setString(8, regdate);
+	pstmt->setDouble(9, xp);
+	pstmt->setString(10, email);
+	pstmt->setDouble(11, balance);
+	pstmt->setDouble(12, wgoal);
 	pstmt->execute();
 	
 	pstmt = con->prepareStatement("SELECT MAX(id) FROM member;");
@@ -185,7 +186,7 @@ void Member::insertSQL(sql::Connection* con){
 void Member::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
-	pstmt = con->prepareStatement("UPDATE member SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,membertype = ?, email = ?, wgoal = ?, balance = ?, xp = ? WHERE id = ?");
+	pstmt = con->prepareStatement("UPDATE member SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,membertype = ?, regdate = ?,xp = ?,email = ?,balance = ?,wgoal = ? WHERE id = ?");
 	pstmt->setString(1, fname);
 	pstmt->setString(2, lname);
 	pstmt->setInt(3, age);
@@ -193,11 +194,12 @@ void Member::updateSQL(sql::Connection* con){
 	pstmt->setDouble(5, height);
 	pstmt->setString(6, birthdate);
 	pstmt->setString(7, membertype);
-	pstmt->setString(8, email);
-	pstmt->setDouble(9, wgoal);
-	pstmt->setDouble(10, balance);
-	pstmt->setDouble(11, xp);
-	pstmt->setInt(12, id);
+	pstmt->setString(8, regdate);
+	pstmt->setDouble(9, xp);
+	pstmt->setString(10, email);
+	pstmt->setDouble(11, balance);
+	pstmt->setDouble(12, wgoal);
+	pstmt->setInt(13, id);
 	pstmt->executeQuery();
 	
 	delete pstmt;
