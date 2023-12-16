@@ -99,6 +99,10 @@ void Usable::unreserve(Member _nullreserver){
 	reserver = _nullreserver;
 }
 
+void Usable::setID(int _id) {
+	id = _id;
+}
+
 int Usable::getID() const {
 	return id;
 }
@@ -141,7 +145,7 @@ void Usable::insertSQL(sql::Connection* con){
 void Usable::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
-	pstmt = con->prepareStatement("UPDATE usable SET capacity = ?,name = ?,reserverName = ?,usableType = ?,accessLevel = ? ,isReservable = ?, isReserved = ? WHERE id = ?");
+	pstmt = con->prepareStatement("UPDATE usable SET capacity = ?,name = ?,reserverName = ?,usableType = ?,accessLevel = ? ,isReservable = ?, isReserved = ? WHERE id = ?;");
 	pstmt->setInt(1, capacity);
 	pstmt->setString(2, name);
 	pstmt->setString(3, reserver.getName());

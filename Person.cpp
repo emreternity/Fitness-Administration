@@ -103,9 +103,14 @@ string Person::getName() const {
 	return fname + " " + lname;
 }
 
+void Person::setID(int _id) {
+	id = _id;
+}
+
 int Person::getID() const {
 	return id;
 }
+
 
 void Person::seeValues() const{
 	cout<<"First Name: "<<getFirstName()<<endl;
@@ -142,7 +147,7 @@ void Person::insertSQL(sql::Connection* con){
 void Person::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
-	pstmt = con->prepareStatement("UPDATE person SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ? WHERE id = ?");
+	pstmt = con->prepareStatement("UPDATE person SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ? WHERE id = ?;");
 	pstmt->setString(1, fname);
 	pstmt->setString(2, lname);
 	pstmt->setInt(3, age);

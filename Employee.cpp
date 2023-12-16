@@ -173,7 +173,7 @@ void Employee::insertSQL(sql::Connection* con){
 void Employee::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
-	pstmt = con->prepareStatement("UPDATE employee SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,startingdate = ?, workdays = ?, leavingdate = ?, basesalary = ?, employeetype = ? WHERE id = ?");
+	pstmt = con->prepareStatement("UPDATE employee SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,startingdate = ?, workdays = ?, leavingdate = ?, basesalary = ?, employeetype = ? WHERE id = ?;");
     pstmt->setString(1, fname);
     pstmt->setString(2, lname);
     pstmt->setInt(3, age);

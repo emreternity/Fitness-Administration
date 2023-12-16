@@ -34,7 +34,8 @@ class Usable {
 		
 		void reserve(Member _reserver);
 		void unreserve(Member _nullreserver);
-		
+
+		void setID(int _id);
 		int getID() const;
 		
 		void seeValues() const;

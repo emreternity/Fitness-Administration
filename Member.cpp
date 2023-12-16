@@ -186,7 +186,7 @@ void Member::insertSQL(sql::Connection* con){
 void Member::updateSQL(sql::Connection* con){
 	sql::PreparedStatement* pstmt;
 		
-	pstmt = con->prepareStatement("UPDATE member SET fname = ?,lname = ?,age = ?,weight = ?,height = ? ,birthdate = ?,membertype = ?, regdate = ?,xp = ?,email = ?,balance = ?,wgoal = ? WHERE id = ?");
+	pstmt = con->prepareStatement("UPDATE member SET fname = ?,lname = ?,age = ?,weight = ? ,height = ?,birthdate = ?,membertype = ?,regdate = ?,xp = ?,email = ?,balance = ?,wgoal = ? WHERE id = ?;");
 	pstmt->setString(1, fname);
 	pstmt->setString(2, lname);
 	pstmt->setInt(3, age);

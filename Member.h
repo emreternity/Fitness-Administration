@@ -18,6 +18,7 @@ private:
 	string email;
 	float balance;
 	float wgoal;
+	int id;
 public:
 	explicit Member(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _membertype, string _email, float _wgoal, float _balance = 0, int _xp = 0);
 	~Member();

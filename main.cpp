@@ -64,10 +64,15 @@ void refreshMemberDatas(sql::Connection* con) {
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 
+	int _id;
+
 	pstmt = con->prepareStatement("SELECT * FROM member;");
 	result = pstmt->executeQuery();
-	while (result->next())
+	while (result->next()){
 		MemberList.push_back(Member(result->getString(2), result->getString(3), result->getInt(4), result->getDouble(5), result->getDouble(6), result->getString(7), result->getString(8), result->getString(11), result->getDouble(13), result->getDouble(12), result->getDouble(10)));
+		_id = result->getInt(1);
+		MemberList.back().setID(_id);
+	}
 	delete pstmt;
 	delete result;
 }
@@ -106,22 +111,10 @@ void updateUsableDatas(sql::Connection* con) {
 	}
 }
 
-void refreshUsableDatas(sql::Connection* con) {
-	sql::PreparedStatement* pstmt;
-	sql::ResultSet* result;
-
-	pstmt = con->prepareStatement("SELECT * FROM usable;");
-	result = pstmt->executeQuery();
-	while (result->next())
-		UsableList.push_back(Usable(result->getInt(2), result->getString(3), matchUsableReserver(con, result->getInt(1)), result->getString(4), result->getString(5), result->getBoolean(6), result->getBoolean(7)));
-	delete pstmt;
-	delete result;
-}
-
 Member matchUsableReserver(sql::Connection* con, int id) {
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
-	
+
 	string reserverName;
 
 	pstmt = con->prepareStatement("SELECT reserverName FROM usable WHERE id = ?;");
@@ -139,12 +132,41 @@ Member matchUsableReserver(sql::Connection* con, int id) {
 	}
 }
 
+void refreshUsableDatas(sql::Connection* con) {
+	sql::PreparedStatement* pstmt;
+	sql::ResultSet* result;
+
+	pstmt = con->prepareStatement("SELECT * FROM usable;");
+	result = pstmt->executeQuery();
+	while (result->next())
+		UsableList.push_back(Usable(result->getInt(2), result->getString(3), matchUsableReserver(con, result->getInt(1)), result->getString(4), result->getString(5), result->getBoolean(6), result->getBoolean(7)));
+	delete pstmt;
+	delete result;
+}
+
 int main() {
 	tryCon();
 	schemaFunc();
 	refreshMemberDatas(con);
-	//Usable u1(100, "Weight 1", nullreserver, "equipment", "silver", true, false);
-	//u1.insertSQL(con);
-	updateMemberDatas(con);
+	refreshEmployeeDatas(con);
+	refreshUsableDatas(con);
+
+	//start
+
+	//UsableList[0].reserve(MemberList[1]);
+	//cout << UsableList[0].getReserver().getName()<<endl;
+	//cout << UsableList[0].getIsReserved() << endl;
+
+	MemberList[1].setFirstName("Emrenso");
+	cout << MemberList[1].getName()<<endl;
+	cout << MemberList[1].getID() << endl;
+	MemberList[1].updateSQL(con);
+
+	//end
+
+	//updateMemberDatas(con);
+	//updateEmployeeDatas(con);
+	//updateUsableDatas(con);
+
 	system("pause");
 }

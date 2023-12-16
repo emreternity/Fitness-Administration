@@ -40,6 +40,7 @@ class Person {
 
 		string getName() const;
 
+		void setID(int _id);
 		int getID() const;
 		
 		void seeValues() const;
