@@ -7,6 +7,12 @@
 class Usable {
 	private:
 		int id;
+		int capacity;
+		string name;
+		string usableType;
+		string accessLevel;
+		bool isReservable;
+		bool isReserved;
 		Member reserver;
 		
 	public:
@@ -28,6 +34,15 @@ class Usable {
 		
 		void reserve(Member _reserver);
 		void unreserve(Member _nullreserver);
+
+		void setID(int _id);
+		int getID() const;
+		
+		void seeValues() const;
+
+		void insertSQL(sql::Connection* con);
+		void updateSQL(sql::Connection* con);
+
 };
 
 #endif // !USABLE_H
