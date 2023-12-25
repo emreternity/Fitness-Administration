@@ -4,6 +4,7 @@
 #include <chrono>
 #include <regex> 
 #include <algorithm>
+#include <math.h>
 
 Member::Member(string _fname, string _lname, int _age, float _weight, float _height,string _birthdate, string _membertype,string _email, float _wgoal, float _balance, int _xp) : Person(_fname, _lname, _age, _weight, _height, _birthdate) {
 	setMemberType(_membertype);
@@ -131,9 +132,11 @@ int Member::getLevel() const {
 	return level;
 }
 
-int Member::calculateBMI() const {
-	int heightinmeters = height / 100;
-	return weight / (heightinmeters * heightinmeters);
+float Member::calculateBMI() const {
+	float heightinmeters = height / 100;
+	float heightsqr = heightinmeters * heightinmeters;
+	float result =  weight / heightsqr;
+	return roundf(result * 10) / 10;
 }
 
 void Member::seeValues() const {

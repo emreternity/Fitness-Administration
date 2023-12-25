@@ -42,7 +42,7 @@ public:
 	void setLevel(int _level = 1);
 	void seeValues() const;
 	
-	int calculateBMI() const;
+	float calculateBMI() const;
 
 	void insertSQL(sql::Connection* con);
 	void updateSQL(sql::Connection* con);
