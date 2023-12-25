@@ -92,7 +92,7 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
  }
   
  void Employee::setEmployeeType(string _employeetype) {
- 	
+     transform(_employeetype.begin(), _employeetype.end(), _employeetype.begin(), ::tolower);
      if (_employeetype == "gorevli" || _employeetype == "temizlikci" || _employeetype == "egitmen") {
                   employeetype = _employeetype;
          if (_employeetype == "gorevli") {
@@ -185,8 +185,8 @@ void Employee::updateSQL(sql::Connection* con){
     pstmt->setString(9, leavingdate);
     pstmt->setDouble(10, basesalary);
     pstmt->setString(11, employeetype);
-	pstmt->setInt(12, id);
-	pstmt->executeQuery();
+	pstmt->setInt(12, getID());
+	pstmt->executeUpdate();
 	
 	delete pstmt;
 }

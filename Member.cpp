@@ -199,8 +199,8 @@ void Member::updateSQL(sql::Connection* con){
 	pstmt->setString(10, email);
 	pstmt->setDouble(11, balance);
 	pstmt->setDouble(12, wgoal);
-	pstmt->setInt(13, id);
-	pstmt->executeQuery();
+	pstmt->setInt(13, getID());
+	pstmt->executeUpdate();
 	
 	delete pstmt;
 }

@@ -153,8 +153,8 @@ void Usable::updateSQL(sql::Connection* con){
 	pstmt->setString(5, accessLevel);
 	pstmt->setBoolean(6, isReservable);
 	pstmt->setBoolean(7, isReserved);
-	pstmt->setInt(8, id);
-	pstmt->executeQuery();
+	pstmt->setInt(8, getID());
+	pstmt->executeUpdate();
 	
 	delete pstmt;
 }

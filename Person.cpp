@@ -154,8 +154,8 @@ void Person::updateSQL(sql::Connection* con){
 	pstmt->setDouble(4, weight);
 	pstmt->setDouble(5, height);
 	pstmt->setString(6, birthdate);
-	pstmt->setInt(7, id);
-	pstmt->executeQuery();
+	pstmt->setInt(7, getID());
+	pstmt->executeUpdate();
 	
 	delete pstmt;
 }

@@ -77,6 +77,31 @@ void refreshMemberDatas(sql::Connection* con) {
 	delete result;
 }
 
+void getMemberList() {
+	for (int i = 0;i < MemberList.size();i++) {
+		cout << "ID: " << MemberList[i].getID() << " | " << MemberList[i].getName() << endl;
+	}
+}
+
+void deleteMember(sql::Connection* con) {
+	
+	sql::PreparedStatement* pstmt;
+
+	int _idDel;
+	getMemberList();
+
+	cout << endl << "Silmek istediginiz uye ID'sini girin: ";
+	cin >> _idDel;
+	for (int i = 0; i < MemberList.size(); i++) {
+		if (_idDel == MemberList[i].getID()) {
+			MemberList.erase(MemberList.begin()+i);
+			pstmt = con->prepareStatement("DELETE FROM member WHERE id = ?");
+			pstmt->setInt(1, MemberList[i].getID());
+			pstmt->executeQuery();	
+		}
+	}
+}
+
 void addEmployee(sql::Connection* con, string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _startingdate, int _workdays, float _basesalary = 11402.32, string _employeetype = "gorevli", int _offdays = 0, string _leavingdate = "N/A") {
 	EmployeeList.push_back(Employee(_fname, _lname, _age, _weight, _height, _birthdate, _startingdate, _workdays, _basesalary, _employeetype, _offdays, _leavingdate));
 	EmployeeList.back().insertSQL(con);
@@ -92,12 +117,42 @@ void refreshEmployeeDatas(sql::Connection* con) {
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 
+	int _id;
+
 	pstmt = con->prepareStatement("SELECT * FROM employee;");
 	result = pstmt->executeQuery();
-	while (result->next())
-		EmployeeList.push_back(Employee(result->getString(2), result->getString(3), result->getInt(4), result->getDouble(5), result->getDouble(6), result->getString(7), result->getString(9), result->getInt(13), result->getDouble(8), result->getString(11), result->getInt(12),result->getString(10)));
+	while (result->next()) {
+		EmployeeList.push_back(Employee(result->getString(2), result->getString(3), result->getInt(4), result->getDouble(5), result->getDouble(6), result->getString(7), result->getString(9), result->getInt(13), result->getDouble(8), result->getString(11), result->getInt(12), result->getString(10)));
+		_id = result->getInt(1);
+		EmployeeList.back().setID(_id);
+	}
 	delete pstmt;
 	delete result;
+}
+
+void getEmployeeList() {
+	for (int i = 0;i < EmployeeList.size();i++) {
+		cout << "ID: " << EmployeeList[i].getID() << " | " << EmployeeList[i].getName() << endl;
+	}
+}
+
+void deleteEmployee(sql::Connection* con) {
+
+	sql::PreparedStatement* pstmt;
+
+	int _idDel;
+	getEmployeeList();
+
+	cout << endl << "Silmek istediginiz calisan ID'sini girin: ";
+	cin >> _idDel;
+	for (int i = 0; i < EmployeeList.size(); i++) {
+		if (_idDel == EmployeeList[i].getID()) {
+			EmployeeList.erase(EmployeeList.begin() + i);
+			pstmt = con->prepareStatement("DELETE FROM employee WHERE id = ?");
+			pstmt->setInt(1, EmployeeList[i].getID());
+			pstmt->executeQuery();
+		}
+	}
 }
 
 void addUsable(sql::Connection* con, int _capacity, string _name, Member _reserver, string _usableType = "equipment", string _accessLevel = "silver", bool _isReservable = true, bool _isReserved = false) {
@@ -136,12 +191,42 @@ void refreshUsableDatas(sql::Connection* con) {
 	sql::PreparedStatement* pstmt;
 	sql::ResultSet* result;
 
+	int _id;
+
 	pstmt = con->prepareStatement("SELECT * FROM usable;");
 	result = pstmt->executeQuery();
-	while (result->next())
+	while (result->next()) {
 		UsableList.push_back(Usable(result->getInt(2), result->getString(3), matchUsableReserver(con, result->getInt(1)), result->getString(4), result->getString(5), result->getBoolean(6), result->getBoolean(7)));
+		_id = result->getInt(1);
+		UsableList.back().setID(_id);
+	}
 	delete pstmt;
 	delete result;
+}
+
+void getUsableList() {
+	for (int i = 0;i < UsableList.size();i++) {
+		cout << "ID: " << UsableList[i].getID() << " | " << UsableList[i].getName() << endl;
+	}
+}
+
+void deleteUsable(sql::Connection* con) {
+
+	sql::PreparedStatement* pstmt;
+
+	int _idDel;
+	getUsableList();
+
+	cout << endl << "Silmek istediginiz kullanilabilir ID'sini girin: ";
+	cin >> _idDel;
+	for (int i = 0; i < UsableList.size(); i++) {
+		if (_idDel == UsableList[i].getID()) {
+			UsableList.erase(UsableList.begin() + i);
+			pstmt = con->prepareStatement("DELETE FROM usable WHERE id = ?");
+			pstmt->setInt(1, UsableList[i].getID());
+			pstmt->executeQuery();
+		}
+	}
 }
 
 int main() {
@@ -153,20 +238,11 @@ int main() {
 
 	//start
 
-	//UsableList[0].reserve(MemberList[1]);
-	//cout << UsableList[0].getReserver().getName()<<endl;
-	//cout << UsableList[0].getIsReserved() << endl;
-
-	MemberList[1].setFirstName("Emrenso");
-	cout << MemberList[1].getName()<<endl;
-	cout << MemberList[1].getID() << endl;
-	MemberList[1].updateSQL(con);
-
 	//end
 
-	//updateMemberDatas(con);
-	//updateEmployeeDatas(con);
-	//updateUsableDatas(con);
+	updateMemberDatas(con);
+	updateEmployeeDatas(con);
+	updateUsableDatas(con);
 
 	system("pause");
 }
