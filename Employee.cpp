@@ -21,8 +21,8 @@ Employee::Employee(string _fname, string _lname, int _age, float _weight, float 
     setStartingDate(_startingdate);
     setWorkDays(_workdays);
     setLeavingDate(_leavingdate);
-    setEmployeeType(_employeetype); 
     setBaseSalary(_basesalary);
+    setEmployeeType(_employeetype);
     setOffDays(_offdays);
 }
 

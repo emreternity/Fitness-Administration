@@ -3,15 +3,17 @@
 
 
 #include "Person.h"
-#include <string>
 
 using namespace std;
 
 class Member : public Person{
 
 	friend class Usable;
+	friend class PTRequest;
 
 private:	
+	string username;
+	string password;
 	string membertype;
 	string regdate;
 	int xp;
@@ -20,8 +22,16 @@ private:
 	float wgoal;
 	int id;
 public:
-	explicit Member(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _membertype, string _email, float _wgoal, float _balance = 0, int _xp = 0);
+	explicit Member(string _fname, string _lname, int _age, float _weight, float _height, string _birthdate, string _membertype, string _email, float _wgoal, string _username, string _password, float _balance = 0, int _xp = 0);
 	~Member();
+
+	Member& operator++();
+	Member operator++(int number);
+	Member& operator+=(int balanceIncrease);
+
+	Member& operator--();
+	Member operator--(int number);
+	Member& operator-=(int balanceDecrease);
 
 	void setMemberType(string _membertype);
 	string getMemberType() const;
@@ -33,6 +43,10 @@ public:
 	float getBalance() const;
 	void setWeightGoal(float _wgoal);
 	float getWeightGoal() const;
+	void setUsername(string _username);
+	string getUsername() const;
+	void setPassword(string _password);
+	string getPassword() const;
 
 	void setRegdate(string _regdate);
 	void setRegdate();
